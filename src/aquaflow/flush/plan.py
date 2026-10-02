@@ -7,7 +7,7 @@ def waves(rows:list[Hydrant],required:float,max_parallel:int):
     while left:
         wave=[];flow=0
         for h in list(left):
-            if len(wave)>max_parallel:break
+            if len(wave)>=max_parallel:break
             if h.sensitive and wave:continue
             wave.append(h.id);flow+=h.flow;left.remove(h)
             if flow>=required:break

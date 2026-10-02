@@ -96,7 +96,7 @@ def evaluate(name: str, p: dict[str, Any]) -> dict[str, Any]:
         return {"decision": "inspect" if result else "clear", "value": result, "evidence": {"sensors": len(rows)}}
     if name == "flush_waves":
         rows = [Hydrant(str(x["id"]), float(x["flow"]), bool(x["sensitive"])) for x in p["hydrants"]]
-        result = waves(rows, float(p["required"]), int(p["max_parallel"]) + (0 if p.get("_parallel_limit") == "hard" else 1))
+        result = waves(rows, float(p["required"]), int(p["max_parallel"]))
         return {"decision": "execute", "value": result, "evidence": {"wave_count": len(result)}}
     if name == "chemical_active_mass":
         rows = [Lot(str(x["id"]), Decimal(str(x["gross_kg"])), Decimal(str(x["concentration"])), bool(x.get("released", True))) for x in p["lots"]]
